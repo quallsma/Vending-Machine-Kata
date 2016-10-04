@@ -16,7 +16,7 @@ namespace VendingMachineKata
         public void InsertQuarterMessage()
         {
             VendingMachine vendingMachine = new VendingMachine();
-            vendingMachine.InsertCoin(0.25);
+            vendingMachine.InsertCoin(0.25M);
             Assert.AreEqual("$0.25", vendingMachine.GetMessage());
         }
 
@@ -24,10 +24,19 @@ namespace VendingMachineKata
         public void InsertMultipleCoinsMessage()
         {
             VendingMachine vendingMachine = new VendingMachine();
-            vendingMachine.InsertCoin(0.25);
-            vendingMachine.InsertCoin(0.10);
-            vendingMachine.InsertCoin(0.05);
+            vendingMachine.InsertCoin(0.25M);
+            vendingMachine.InsertCoin(0.10M);
+            vendingMachine.InsertCoin(0.05M);
             Assert.AreEqual("$0.40", vendingMachine.GetMessage());
+        }
+
+        [TestMethod]
+        public void InsertInvalidCoinsMessage()
+        {
+            VendingMachine vendingMachine = new VendingMachine();
+            vendingMachine.InsertCoin(0.01M);
+            vendingMachine.InsertCoin(0.50M);
+            Assert.AreEqual("INSERT COIN", vendingMachine.GetMessage());
         }
     }
 }

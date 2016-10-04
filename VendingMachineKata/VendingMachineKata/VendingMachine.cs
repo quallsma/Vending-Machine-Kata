@@ -8,7 +8,8 @@ namespace VendingMachineKata
 {
     public class VendingMachine
     {
-        private double RemainingBalance = 0.00;
+        private decimal RemainingBalance = 0.00M;
+        private decimal[] coins = { 0.25M, 0.10M, 0.05M }; 
 
         public string GetMessage()
         {
@@ -17,9 +18,10 @@ namespace VendingMachineKata
             return "INSERT COIN";
         }
 
-        public void InsertCoin(double coin)
+        public void InsertCoin(decimal coin)
         {
-            RemainingBalance += coin;
+            if (coins.Contains(coin))
+                RemainingBalance += coin;
         }
     }
 }
