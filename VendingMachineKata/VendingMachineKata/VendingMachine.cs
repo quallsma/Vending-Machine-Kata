@@ -8,18 +8,18 @@ namespace VendingMachineKata
 {
     public class VendingMachine
     {
-        private double amount = 0.00;
+        private double RemainingBalance = 0.00;
 
         public string GetMessage()
         {
-            if (amount > 0)
-                return "$" + amount.ToString();
+            if (RemainingBalance > 0)
+                return String.Format("{0:C}", RemainingBalance);
             return "INSERT COIN";
         }
 
-        internal void InsertCoin()
+        public void InsertCoin(double coin)
         {
-            amount += 0.25;
+            RemainingBalance += coin;
         }
     }
 }
