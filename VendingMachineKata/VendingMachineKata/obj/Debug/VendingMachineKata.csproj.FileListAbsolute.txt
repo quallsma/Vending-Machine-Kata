@@ -1,0 +1,6 @@
+H:\Users\Turkey-Mane\Documents\GitHub\Vending-Machine-Kata\VendingMachineKata\VendingMachineKata\bin\Debug\VendingMachineKata.dll
+H:\Users\Turkey-Mane\Documents\GitHub\Vending-Machine-Kata\VendingMachineKata\VendingMachineKata\bin\Debug\VendingMachineKata.pdb
+H:\Users\Turkey-Mane\Documents\GitHub\Vending-Machine-Kata\VendingMachineKata\VendingMachineKata\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+H:\Users\Turkey-Mane\Documents\GitHub\Vending-Machine-Kata\VendingMachineKata\VendingMachineKata\obj\Debug\VendingMachineKata.csprojResolveAssemblyReference.cache
+H:\Users\Turkey-Mane\Documents\GitHub\Vending-Machine-Kata\VendingMachineKata\VendingMachineKata\obj\Debug\VendingMachineKata.dll
+H:\Users\Turkey-Mane\Documents\GitHub\Vending-Machine-Kata\VendingMachineKata\VendingMachineKata\obj\Debug\VendingMachineKata.pdb

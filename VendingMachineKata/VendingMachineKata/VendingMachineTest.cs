@@ -2,12 +2,14 @@
 
 namespace VendingMachineKata
 {
-    class VendingMachineTest
+    [TestClass]
+    public class VendingMachineTest
     {
         [TestMethod]
-        public void TestMethod()
+        public void DisplayInitialMessage()
         {
-
+            VendingMachine vendingMachine = new VendingMachine();
+            Assert.AreEqual("INSERT COIN", vendingMachine.GetMessage());
         }
     }
 }

@@ -8,6 +8,9 @@ namespace VendingMachineKata
 {
     public class VendingMachine
     {
-
+        public string GetMessage()
+        {
+            return "INSERT COIN";
+        }
     }
 }
