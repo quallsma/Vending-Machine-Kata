@@ -8,13 +8,13 @@ namespace VendingMachineKata
 {
     public class VendingMachine
     {
-        private decimal Change { get; set; }
+        //private decimal Change { get; set; }
 
         private decimal CurrentAmount = 0.00M;
 
-        private readonly Coin quarter = new Coin() { amount = 0.25M, mass = 5.670, diameter = 24.26, thickness = 1.75};
-        private readonly Coin dime = new Coin() { amount = 0.10M, mass = 2.268, diameter = 17.91, thickness = 1.35 };
-        private readonly Coin nickel = new Coin() { amount = 0.05M, mass = 5.000, diameter = 21.21, thickness = 1.95 };
+        private readonly Coin quarter = new Coin() { amount = 0.25M, mass = 5.670, diameter = 24.26, thickness = 1.75, coinType = CoinType.Quater};
+        private readonly Coin dime = new Coin() { amount = 0.10M, mass = 2.268, diameter = 17.91, thickness = 1.35, coinType = CoinType.Dime };
+        private readonly Coin nickel = new Coin() { amount = 0.05M, mass = 5.000, diameter = 21.21, thickness = 1.95, coinType = CoinType.Nickel };
 
         private List<Coin> Coins;
         private Dictionary<string, decimal> Products = new Dictionary<string, decimal>();
@@ -53,7 +53,7 @@ namespace VendingMachineKata
             if (CurrentAmount >= Products[product])
             {
                 Messages.Clear();
-                Change = CurrentAmount - Products[product];
+                CurrentAmount -= Products[product];
                 Messages.Push("THANK YOU");
                 return;
             }
@@ -62,9 +62,29 @@ namespace VendingMachineKata
 
         public decimal GetChangeAmount()
         {
-            decimal change = Change;
-            Change = 0.00M;
-            return change;
+            return CurrentAmount;
         }
+
+        public int GetCoinNumber()
+        {
+            return Coins.Count;
+        }
+
+        public List<Coin> ReturnCoins()
+        {
+            Messages.Clear();
+            List<Coin> Change = new List<Coin>();
+            foreach(var coin in Coins)
+            {
+                while(CurrentAmount >= coin.amount)
+                {
+                    Change.Add(coin);
+                    CurrentAmount -= coin.amount;
+                }
+            }
+            return Change;
+        }
+
+
     }
 }

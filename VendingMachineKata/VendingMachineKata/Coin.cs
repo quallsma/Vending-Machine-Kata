@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace VendingMachineKata
 {
-    class Coin
+    public class Coin
     {
         public decimal amount { get; set; }
         public double mass { get; set; }
         public double diameter { get; set; }
         public double thickness { get; set; }
+        public CoinType coinType { get; set; }
+    }
+    public enum CoinType
+    {
+        Quater,
+        Dime,
+        Nickel
     }
 }
