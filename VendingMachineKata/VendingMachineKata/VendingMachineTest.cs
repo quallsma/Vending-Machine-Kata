@@ -13,38 +13,37 @@ namespace VendingMachineKata
         }
 
         [TestMethod]
-        public void InsertQuarterMessage()
-        {
-            VendingMachine vendingMachine = new VendingMachine();
-            vendingMachine.InsertCoin(0.25M);
-            Assert.AreEqual("$0.25", vendingMachine.GetMessage());
-        }
-
-        [TestMethod]
-        public void InsertMultipleCoinsMessage()
-        {
-            VendingMachine vendingMachine = new VendingMachine();
-            vendingMachine.InsertCoin(0.25M);
-            vendingMachine.InsertCoin(0.10M);
-            vendingMachine.InsertCoin(0.05M);
-            Assert.AreEqual("$0.40", vendingMachine.GetMessage());
-        }
-
-        [TestMethod]
-        public void InsertInvalidCoinsMessage()
-        {
-            VendingMachine vendingMachine = new VendingMachine();
-            vendingMachine.InsertCoin(0.01M);
-            vendingMachine.InsertCoin(0.50M);
-            Assert.AreEqual("INSERT COIN", vendingMachine.GetMessage());
-        }
-
-        [TestMethod]
         public void InsertCoinByWeightAndSizeMessage()
         {
             VendingMachine vendingMachine = new VendingMachine();
             vendingMachine.InsertCoin(5.670, 24.26, 1.75);
             Assert.AreEqual("$0.25", vendingMachine.GetMessage());
+        }
+
+        [TestMethod]
+        public void InsertInvalidCoinByWeightAndSizeMessage()
+        {
+            VendingMachine vendingMachine = new VendingMachine();
+            vendingMachine.InsertCoin(4.670, 24.26, 1.75);
+            Assert.AreEqual("INSERT COIN", vendingMachine.GetMessage());
+        }
+
+        [TestMethod]
+        public void InsertMultipleCoinsByWeightAndSizeMessage()
+        {
+            VendingMachine vendingMachine = new VendingMachine();
+            vendingMachine.InsertCoin(5.670, 24.26, 1.75);
+            vendingMachine.InsertCoin(2.268, 17.91, 1.35);
+            vendingMachine.InsertCoin(5.000, 21.21, 1.95);
+            Assert.AreEqual("$0.40", vendingMachine.GetMessage());
+        }
+
+        [TestMethod]
+        public void SelectProductWithNoMoneyInserted()
+        {
+            VendingMachine vendingMachine = new VendingMachine();
+            vendingMachine.SelectProduct("candy");
+            Assert.AreEqual("$0.65", vendingMachine.GetMessage());
         }
     }
 }
