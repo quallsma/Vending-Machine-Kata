@@ -8,7 +8,7 @@ namespace VendingMachineKata
 {
     public class VendingMachine
     {
-        private decimal RemainingBalance = 0.00M;
+        private decimal CurrentAmount = 0.00M;
 
         private readonly Coin quarter = new Coin() { amount = 0.25M, mass = 5.670, diameter = 24.26, thickness = 1.75};
         private readonly Coin dime = new Coin() { amount = 0.10M, mass = 2.268, diameter = 17.91, thickness = 1.35 };
@@ -40,14 +40,21 @@ namespace VendingMachineKata
             Coin coin = Coins.FirstOrDefault(m => m.mass == mass && m.diameter == diameter && m.thickness == thickness);
             if (coin != null)
             {
-                RemainingBalance += coin.amount;
-                Messages.Push(String.Format("{0:C}", RemainingBalance));
+                CurrentAmount += coin.amount;
+                Messages.Push(String.Format("{0:C}", CurrentAmount));
             }
                 
         }
 
         public void SelectProduct(string product)
         {
+            if (CurrentAmount == Products[product])
+            {
+                Messages.Clear();
+                CurrentAmount = 0.00M;
+                Messages.Push("THANK YOU");
+                return;
+            }
             Messages.Push(String.Format("PRICE {0:C}", Products[product]));
         }
     }
