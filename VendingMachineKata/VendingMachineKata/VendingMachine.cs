@@ -48,7 +48,7 @@ namespace VendingMachineKata
 
         public void SelectProduct(string product)
         {
-            Messages.Push(String.Format("{0:C}", Products[product]));
+            Messages.Push(String.Format("PRICE {0:C}", Products[product]));
         }
     }
 }
