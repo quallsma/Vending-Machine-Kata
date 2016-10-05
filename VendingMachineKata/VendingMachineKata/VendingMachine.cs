@@ -8,6 +8,8 @@ namespace VendingMachineKata
 {
     public class VendingMachine
     {
+        private decimal Change { get; set; }
+
         private decimal CurrentAmount = 0.00M;
 
         private readonly Coin quarter = new Coin() { amount = 0.25M, mass = 5.670, diameter = 24.26, thickness = 1.75};
@@ -48,14 +50,21 @@ namespace VendingMachineKata
 
         public void SelectProduct(string product)
         {
-            if (CurrentAmount == Products[product])
+            if (CurrentAmount >= Products[product])
             {
                 Messages.Clear();
-                CurrentAmount = 0.00M;
+                Change = CurrentAmount - Products[product];
                 Messages.Push("THANK YOU");
                 return;
             }
             Messages.Push(String.Format("PRICE {0:C}", Products[product]));
+        }
+
+        public decimal GetChangeAmount()
+        {
+            decimal change = Change;
+            Change = 0.00M;
+            return change;
         }
     }
 }

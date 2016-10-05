@@ -67,5 +67,20 @@ namespace VendingMachineKata
             Assert.AreEqual("THANK YOU", vendingMachine.GetMessage());
             Assert.AreEqual("INSERT COIN", vendingMachine.GetMessage());
         }
+
+        [TestMethod]
+        public void MakeChange()
+        {
+            VendingMachine vendingMachine = new VendingMachine();
+            vendingMachine.InsertCoin(5.670, 24.26, 1.75);
+            vendingMachine.InsertCoin(5.670, 24.26, 1.75);
+            vendingMachine.InsertCoin(5.670, 24.26, 1.75);
+            vendingMachine.SelectProduct("candy");
+            
+            Assert.AreEqual("THANK YOU", vendingMachine.GetMessage());
+            Assert.AreEqual(0.10M, vendingMachine.GetChangeAmount());
+            Assert.AreEqual("INSERT COIN", vendingMachine.GetMessage());
+            Assert.AreEqual(0.00M, vendingMachine.GetChangeAmount());
+        }
     }
 }
