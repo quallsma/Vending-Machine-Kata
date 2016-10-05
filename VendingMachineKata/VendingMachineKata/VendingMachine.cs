@@ -8,7 +8,7 @@ namespace VendingMachineKata
 {
     public class VendingMachine
     {
-        //private decimal Change { get; set; }
+        private bool ExactChange { get; set; }
 
         private decimal CurrentAmount = 0.00M;
 
@@ -16,23 +16,27 @@ namespace VendingMachineKata
         private readonly Coin dime = new Coin() { amount = 0.10M, mass = 2.268, diameter = 17.91, thickness = 1.35, coinType = CoinType.Dime };
         private readonly Coin nickel = new Coin() { amount = 0.05M, mass = 5.000, diameter = 21.21, thickness = 1.95, coinType = CoinType.Nickel };
 
+        private Product cola = new Product() { Name = "cola", Cost = 1.00M, Quantity = 5 };
+        private Product chips = new Product() { Name = "chips", Cost = 0.50M, Quantity = 5 };
+        private Product candy = new Product() { Name = "candy", Cost = 0.65M, Quantity = 5 };
+        private Product water = new Product() { Name = "water", Cost = 0.50M, Quantity = 0 };
+
         private List<Coin> Coins;
-        private Dictionary<string, decimal> Products = new Dictionary<string, decimal>();
+        private List<Product> Products;
         private Stack<string> Messages;
 
-        public VendingMachine()
+        public VendingMachine(bool exactChange = true)
         {
+            ExactChange = exactChange;
             Coins = new List<Coin>() { quarter, dime, nickel };
             Messages = new Stack<string>();
-            Products.Add("cola", 1.00M);
-            Products.Add("chips", 0.50M);
-            Products.Add("candy", 0.65M);
+            Products = new List<Product>() { cola,chips,candy,water};
         }
 
         public string GetMessage()
         {
             if (Messages.Count <= 0)
-                return "INSERT COIN";
+                return ExactChange ? "INSERT COIN" : "EXACT CHANGE ONLY";
             
             return Messages.Pop();
         }
@@ -48,16 +52,26 @@ namespace VendingMachineKata
                 
         }
 
-        public void SelectProduct(string product)
+        public void SelectProduct(string name)
         {
-            if (CurrentAmount >= Products[product])
+            Product product = Products.FirstOrDefault(p => p.Name == name);
+            if (product == null)
+                return;
+
+            if(product.Quantity == 0)
+            {
+                Messages.Push("SOLD OUT");
+                return;
+            }
+
+            if (CurrentAmount >= product.Cost)
             {
                 Messages.Clear();
-                CurrentAmount -= Products[product];
+                CurrentAmount -= product.Cost;
                 Messages.Push("THANK YOU");
                 return;
             }
-            Messages.Push(String.Format("PRICE {0:C}", Products[product]));
+            Messages.Push(String.Format("PRICE {0:C}", product.Cost));
         }
 
         public decimal GetChangeAmount()
@@ -65,12 +79,7 @@ namespace VendingMachineKata
             return CurrentAmount;
         }
 
-        public int GetCoinNumber()
-        {
-            return Coins.Count;
-        }
-
-        public List<Coin> ReturnCoins()
+        public Coin[] ReturnCoins()
         {
             Messages.Clear();
             List<Coin> Change = new List<Coin>();
@@ -82,7 +91,7 @@ namespace VendingMachineKata
                     CurrentAmount -= coin.amount;
                 }
             }
-            return Change;
+            return Change.ToArray();
         }
 
 

@@ -79,6 +79,8 @@ namespace VendingMachineKata
             
             Assert.AreEqual("THANK YOU", vendingMachine.GetMessage());
             Assert.AreEqual(0.10M, vendingMachine.GetChangeAmount());
+            var ChangeArray = vendingMachine.ReturnCoins();
+            Assert.AreEqual(CoinType.Dime, ChangeArray[0].coinType);
             Assert.AreEqual("INSERT COIN", vendingMachine.GetMessage());
         }
 
@@ -101,6 +103,22 @@ namespace VendingMachineKata
             Assert.AreEqual(CoinType.Nickel, ChangeArray[3].coinType);
 
             Assert.AreEqual("INSERT COIN", vendingMachine.GetMessage());
+        }
+
+        [TestMethod]
+        public void SoldOutProducts()
+        {
+            VendingMachine vendingMachine = new VendingMachine();
+            vendingMachine.SelectProduct("water");
+            Assert.AreEqual("SOLD OUT", vendingMachine.GetMessage());
+            Assert.AreEqual("INSERT COIN", vendingMachine.GetMessage());
+        }
+
+        [TestMethod]
+        public void ExactChangeOnly()
+        {
+            VendingMachine vendingMachine = new VendingMachine(false);
+            Assert.AreEqual("EXACT CHANGE ONLY", vendingMachine.GetMessage());
         }
     }
 }
